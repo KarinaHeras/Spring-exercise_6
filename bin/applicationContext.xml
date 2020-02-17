@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+       default-init-method="metodoInit"
+       default-destroy-method="metodoDestroy">
+
+    <bean id="beanCliente" class="com.grupoatrium.modelo.Cliente">
+        <property name="nombre" value="Empresa Spring S.L." />
+        <property name="nif" value="A-12345678" />
+        <property name="direccion" value="C/ Mayor 16, 28080 Madrid" />
+    </bean>
+
+<!--  Haciendo referencia a sus propiedades-->
+    <bean id="factura1" class="com.grupoatrium.modelo.Factura">
+        <property name="cliente" ref="beanCliente" />
+        <property name="importe" value="10000" />
+        <property name="fecha" >
+            <bean class="java.util.Date" />
+        </property>
+    </bean>
+
+<!--A través del constructor por tipo de datos-->
+    <bean id="factura2" class="com.grupoatrium.modelo.Factura">
+        <constructor-arg type="com.grupoatrium.modelo.Cliente" ref="beanCliente"/>
+        <constructor-arg type="double" value="12000" />
+        <constructor-arg type="java.util.Date" >
+            <bean class="java.util.Date" />
+        </constructor-arg>
+    </bean>
+
+<!--A través del constructor por posición-->
+    <bean id="factura3" class="com.grupoatrium.modelo.Factura">
+        <constructor-arg index="0" ref="beanCliente"/>
+        <constructor-arg index="1" value="13000" />
+        <constructor-arg index="2" >
+            <bean class="java.util.Date" />
+        </constructor-arg>
+    </bean>
+
+<!--A través del constructor por nombre-->
+    <bean id="factura4" class="com.grupoatrium.modelo.Factura">
+        <constructor-arg name="cliente" ref="beanCliente"/>
+        <constructor-arg name="importe" value="14000" />
+        <constructor-arg name="fecha" >
+            <bean class="java.util.Date" />
+        </constructor-arg>
+    </bean>
+
+</beans>
